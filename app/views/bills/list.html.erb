@@ -1,6 +1,31 @@
 <h1 class="text-center">List of Bills</h1>
 
 
+<% 
+  totaloverdue = 0
+  totaldue = 0;
+  @bill_items.each do |b| 
+    if (b.bill_date < Date.today) && (b.paid < b.amount)
+      totaloverdue += b.amount-b.paid
+    end
+
+    if (b.bill_date >= Date.today) && (b.paid < b.amount) && (b.bill_date.strftime('%m') == Date.today.strftime('%m'))
+      totaldue += b.amount-b.paid
+    end  
+ end
+%> 
+
+<div class="container justify-content-center">
+    <div class="row no-gutters border" >
+      <div class="col-6 mt-2">
+        <p class="font-weight-bold text-center text-danger">Overdue : <%=totaloverdue %> </p>
+      </div>
+      <div class="col-6 mt-2">  
+        <p class="font-weight-bold text-center text-primary" >Due : <%=totaldue %> </p>
+      </div>
+    </div>
+</div>
+
 <% @bill_items.each do |bill_item| %> 
 
     <% 
@@ -19,16 +44,21 @@
             tdaytextcolor = 'text-white'
         end
       end 
+
+      if (bill_item.bill_date >= Date.today) && (bill_item.paid >= bill_item.amount)
+        textdecoration = 'text-decoration: line-through;'
+      else
+        textdecoration = ''
+      end  
+
     %>
 
-
-    <div class="row mr-2 no-gutters ">
+   <div class="container justify-content-center">
+    <div class="row no-gutters " >
       <div class="col-10 ">
         <div class="text-white rounded-left <%=tcolor%> mb-2 p-2">
- 
-                <h5 class=""> <%= bill_item.bill_caption %> </h3>
-                <p class="mb-2 text-light font-weight-light"> Due Date: <%= bill_item.bill_date.strftime('%v') %> </p>
-          
+          <h5 style="<%=textdecoration%>"> <%= bill_item.bill_caption %> </h5>
+          <p class="mb-2 text-light font-weight-light"> Due Date: <%= bill_item.bill_date.strftime('%a, %d/%m/%y') %> </p>        
         </div>
       </div>
       <div class="col-2 rounded-right <%=tcolor%> p-2 mb-2">
@@ -37,6 +67,6 @@
          <% end %>       
       </div>
     </div>
-
+   </div>
 
 <% end %>
