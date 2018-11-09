@@ -1,0 +1,42 @@
+<h1 class="text-center">List of Bills</h1>
+
+
+<% @bill_items.each do |bill_item| %> 
+
+    <% 
+      if (bill_item.bill_date-Date.today > 0) 
+        tcolor = 'bg-success'   
+        tdayscolor = 'bg-success'
+        tdaytextcolor = 'text-white'
+      else
+        if (bill_item.bill_date-Date.today < 0)
+            tcolor = 'bg-danger'
+            tdayscolor = 'bg-warning'
+            tdaytextcolor = 'text-dark'
+        else
+            tcolor = 'bg-primary'
+            tdayscolor = 'bg-info'
+            tdaytextcolor = 'text-white'
+        end
+      end 
+    %>
+
+
+    <div class="row mr-2 no-gutters ">
+      <div class="col-10 ">
+        <div class="text-white rounded-left <%=tcolor%> mb-2 p-2">
+ 
+                <h5 class=""> <%= bill_item.bill_caption %> </h3>
+                <p class="mb-2 text-light font-weight-light"> Due Date: <%= bill_item.bill_date.strftime('%v') %> </p>
+          
+        </div>
+      </div>
+      <div class="col-2 rounded-right <%=tcolor%> p-2 mb-2">
+         <% if (bill_item.bill_date != Date.today) %>
+                <h4 class="<%=tdaytextcolor%> text-center <%=tdayscolor%> p-2 rounded-circle mt-1"> <%=(bill_item.bill_date-Date.today).to_i.abs %></h3>
+         <% end %>       
+      </div>
+    </div>
+
+
+<% end %>
