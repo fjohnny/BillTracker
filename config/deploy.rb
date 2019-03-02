@@ -2,13 +2,13 @@
 lock "~> 3.11.0"
 
 set :application, "BillTracker"
-set :repo_url, "git@github.com:fjohnny/BillTracker.git"
+set :repo_url, "https://github.com/fjohnny/BillTracker.git"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/home/deploy/#{fetch :application}"
+set :deploy_to, "/home/ruby/#{fetch :application}"
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system', 'public/uploads'
 set :keep_releases, 5
 
