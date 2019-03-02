@@ -1,7 +1,7 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.11.0"
 
-set :application, "Bill Tracker"
+set :application, "BillTracker"
 set :repo_url, "git@github.com:fjohnny/BillTracker.git"
 
 # Default branch is :master
