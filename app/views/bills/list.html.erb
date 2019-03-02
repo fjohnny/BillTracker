@@ -1,9 +1,11 @@
-<h1 class="text-center">List of Bills</h1>
-
+<h2 class="text-center ">List of Bills</h2>
 
 <% 
+
+
   totaloverdue = 0
   totaldue = 0;
+  due_this_week = 0;
   @bill_items.each do |b| 
     if (b.bill_date < Date.today) && (b.paid < b.amount)
       totaloverdue += b.amount-b.paid
@@ -12,16 +14,25 @@
     if (b.bill_date >= Date.today) && (b.paid < b.amount) && (b.bill_date.strftime('%m') == Date.today.strftime('%m'))
       totaldue += b.amount-b.paid
     end  
+
+    if (b.bill_date >= Date.today) && (b.paid < b.amount) && (b.bill_date <= Date.today + 7)
+      due_this_week += b.amount-b.paid
+    end  
  end
 %> 
 
 <div class="container justify-content-center">
-    <div class="row no-gutters border" >
-      <div class="col-6 mt-2">
-        <p class="font-weight-bold text-center text-danger">Overdue : <%=totaloverdue %> </p>
+    <div class="row no-gutters border mb-2 bg-gray rounded" >
+      <div class="col-12 col-lg-4 mt-2">
+        <p class="font-weight-bold text-center text-danger">Overdue : <%=number_to_currency(totaloverdue) %> </p>
       </div>
-      <div class="col-6 mt-2">  
-        <p class="font-weight-bold text-center text-primary" >Due : <%=totaldue %> </p>
+
+      <div class="col-12 col-lg-4 mt-lg-2">
+        <p class="font-weight-bold text-center text-primary" >Due this Month: <%=number_to_currency(totaldue) %> </p>
+      </div>
+
+      <div class="col-12 col-lg-4 mt-lg-2">
+        <p class="font-weight-bold text-center text-primary" >Due next 7 days: <%=number_to_currency(due_this_week) %> </p>
       </div>
     </div>
 </div>
@@ -52,21 +63,22 @@
       end  
 
     %>
-
-   <div class="container justify-content-center">
-    <div class="row no-gutters " >
+  <% if (bill_item.bill_date >= Date.today) || (bill_item.paid < bill_item.amount) %>
+   <div class="container ">
+    <div class="row no-gutters" >
       <div class="col-10 ">
         <div class="text-white rounded-left <%=tcolor%> mb-2 p-2">
           <h5 style="<%=textdecoration%>"> <%= bill_item.bill_caption %> </h5>
           <p class="mb-2 text-light font-weight-light"> Due Date: <%= bill_item.bill_date.strftime('%a, %d/%m/%y') %> </p>        
         </div>
       </div>
-      <div class="col-2 rounded-right <%=tcolor%> p-2 mb-2">
+      <div class="col-2 rounded-right justify-content-center <%=tcolor%> p-2 mb-2">
          <% if (bill_item.bill_date != Date.today) %>
-                <h4 class="<%=tdaytextcolor%> text-center <%=tdayscolor%> p-2 rounded-circle mt-1"> <%=(bill_item.bill_date-Date.today).to_i.abs %></h3>
+                <h4 class="<%=tdaytextcolor%> text-center <%=tdayscolor%> p-2 rounded-circle mt-1"> <%=(bill_item.bill_date-Date.today).to_i.abs %></h4>
          <% end %>       
       </div>
     </div>
    </div>
+   <% end %>
 
 <% end %>
