@@ -11,7 +11,7 @@ set :repo_url, "git@github.com:fjohnny/billtracker.git"
 set :deploy_to, "/home/deploy/#{fetch :application}"
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system', 'public/uploads'
 set :keep_releases, 5
-append :linked_files, 'config/database.yml', 'config/secrets.yml'
+#append :linked_files, 'config/database.yml', 'config/secrets.yml'
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
