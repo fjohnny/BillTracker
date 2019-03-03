@@ -51,4 +51,5 @@ production:
   <<: *default
   database: billtracker
   username: mysqladmin
-  password: <%= ENV['BILLTRACKER_DATABASE_PASSWORD'] %>
+  #password: <%= ENV['BILLTRACKER_DATABASE_PASSWORD'] %>
+  password: masterkey
