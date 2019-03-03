@@ -50,5 +50,5 @@ test:
 production:
   <<: *default
   database: billtracker
-  username: billtracker
+  username: mysqladmin
   password: <%= ENV['BILLTRACKER_DATABASE_PASSWORD'] %>
