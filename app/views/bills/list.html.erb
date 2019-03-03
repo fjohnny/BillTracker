@@ -65,14 +65,14 @@
     %>
   <% if (bill_item.bill_date >= Date.today) || (bill_item.paid < bill_item.amount) %>
    <div class="container ">
-    <div class="row no-gutters" >
+    <div class="row no-gutters marginRow " >
       <div class="col-9 col-md-10 ">
-        <div class="text-white rounded-left <%=tcolor%> mb-2 p-2">
+        <div class="text-white rounded-left <%=tcolor%>  p-2">
           <h5 style="<%=textdecoration%>"> <%= bill_item.bill_caption %> </h5>
           <p class="mb-2 text-light font-weight-light"> Due Date: <%= bill_item.bill_date.strftime('%a, %d/%m/%y') %> </p>        
         </div>
       </div>
-      <div class="col-3 col-md-2 rounded-right justify-content-center <%=tcolor%> p-2 mb-2">
+      <div class="col-3 col-md-2 rounded-right justify-content-center <%=tcolor%> p-2 ">
          <% if (bill_item.bill_date != Date.today) %>
                 <h4 class="<%=tdaytextcolor%> text-center <%=tdayscolor%> circle p-2 mt-2 "> <%=(bill_item.bill_date-Date.today).to_i.abs %></h4>
          <% end %>       
