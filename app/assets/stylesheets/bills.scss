@@ -4,3 +4,14 @@
 .bg-gray {
     background: rgb(236, 236, 236);
 }
+
+.circle {
+
+    border-radius: 50px;
+    color: white;
+    height: 50px;
+    font-weight: bold;
+    width: 50px;
+    display: table;
+    margin: 5px auto;
+}
